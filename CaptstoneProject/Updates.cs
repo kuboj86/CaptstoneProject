@@ -33,6 +33,30 @@ namespace CaptstoneProject
                 stream.Close();
             }
         }
+        public static void InsertPortfolioList(List<Portfolio> updatedPortfolioList)
+        {
+            int i = 0;
+            using (StreamWriter stream = new StreamWriter("Data/Portfolio.txt", false))
+            {
+                foreach (var stock in updatedPortfolioList)
+                {
+                    i++;
+                    if (i == updatedPortfolioList.Count)
+                    {
+                        string equity = $"{stock.Id},{stock.CompanyName},{stock.TickerSymbol},{stock.PurchasedStockPrice},{stock.NewStockPrice}";
+                        stream.Write(equity);
+                    }
+                    else
+                    {
+                        string equity = $"{stock.Id},{stock.CompanyName},{stock.TickerSymbol},{stock.PurchasedStockPrice},{stock.NewStockPrice}\n";
+                        stream.Write(equity);
+                    }
+
+                }
+                stream.Close();
+            }
+        }
+
         public static void InsertPortfolioRecord(Portfolio port)
         {
             string equity = $"{port.Id},{port.CompanyName},{port.TickerSymbol},{port.PurchasedStockPrice},{port.NewStockPrice}";

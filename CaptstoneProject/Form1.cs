@@ -19,12 +19,14 @@ namespace CaptstoneProject
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            Cursor cursor = Cursor.Current;
+            Cursor.Current = Cursors.WaitCursor;
             List<Stock> companyList = Company.GetCompanysList();
             List<Portfolio> portfolioList = Portfolio.GetPortfolio(companyList);
 
             SetStockGridView(companyList);
             SetPortfolioGridView(portfolioList);
+            Cursor.Current = Cursors.Default;
         }
         private void SetStockGridView(List<Stock> companyList)
         {
@@ -78,6 +80,7 @@ namespace CaptstoneProject
             dataGridView2.Refresh();
 
             dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView2.AllowUserToResizeRows = false;
             dataGridView2.ReadOnly = true;
             dataGridView2.DataSource = portfolioList;
             this.dataGridView2.Columns["Id"].Visible = false;
@@ -104,7 +107,8 @@ namespace CaptstoneProject
         }
         public void BuyButton_Click(object sender, EventArgs e)
         {
-
+            Cursor cursor = Cursor.Current;
+            Cursor.Current = Cursors.WaitCursor;
             List<Stock> companyList = Company.GetCompanysList();
             if (dataGridView1.SelectedRows.Count != 0)
             {
@@ -116,18 +120,21 @@ namespace CaptstoneProject
                 port.NewStockPrice = (double)row.Cells["NewStockPrice"].Value;
                 port.PurchasedStockPrice = (double)row.Cells["NewStockPrice"].Value;
 
-                //portfolioList.Add(company);
-
-                string newBalance = Calculations.CalculateSubtractFromBalance(port.PurchasedStockPrice);
-                Updates.InsertBalanceRecord(newBalance);
-                Updates.InsertPortfolioRecord(port);
-
                 List<Portfolio> portfolioList = Portfolio.GetPortfolio(companyList);
+                portfolioList.Add(port);
+                string newBalance = Calculations.CalculateSubtractFromBalance(port.PurchasedStockPrice);
+
+                Updates.InsertBalanceRecord(newBalance);
+                Updates.InsertPortfolioList(portfolioList);
+
+
                 dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
                 dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                dataGridView2.AllowUserToResizeRows = false;
                 dataGridView2.ReadOnly = true;
                 dataGridView2.DataSource = portfolioList;
                 buyingPowerValue.Text = Calculations.GetBuyingPower();
+
                 SetPortfolioGridView(portfolioList);
             }
             else
@@ -139,10 +146,12 @@ namespace CaptstoneProject
             List<Portfolio> updatedPortfolioList = Portfolio.GetPortfolio(companyList);
             SetPortfolioGridView(updatedPortfolioList);
 
-
+            Cursor.Current = Cursors.Default;
         }
         private void sellButton_Click(object sender, EventArgs e)
         {
+            Cursor cursor = Cursor.Current;
+            Cursor.Current = Cursors.WaitCursor;
             List<Stock> companyList = Company.GetCompanysList();
             if (dataGridView2.SelectedRows.Count != 0)
             {
@@ -166,9 +175,11 @@ namespace CaptstoneProject
                 dataGridView2.DataSource = portfolioList;
                 buyingPowerValue.Text = Calculations.GetBuyingPower();
 
+                Updates.InsertPortfolioList(portfolioList);
                 SetPortfolioGridView(portfolioList);
             }
             SetStockGridView(companyList);
+            Cursor.Current = Cursors.Default;
         }
     }
 }
