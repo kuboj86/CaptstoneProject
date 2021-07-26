@@ -32,14 +32,13 @@ namespace CaptstoneProject
 
             dataGridView1.Visible = true;
             dataGridView2.Visible = true;
-            textBox1.Visible = false;
-            textBox2.Visible = false;
+
             textBox3.Visible = true;
             textBox4.Visible = true;
 
             buyingPower_label.Visible = true;
-            valuelabel.Visible = true;
-            valuelabel.Text = Calculations.GetBuyingPower();
+            buyingPowerValue.Visible = true;
+            buyingPowerValue.Text = Calculations.GetBuyingPower();
 
 
             BuyButton.Visible = true;
@@ -50,6 +49,7 @@ namespace CaptstoneProject
             dataGridView1.Refresh();
 
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.ReadOnly = true;
             dataGridView1.DataSource = companyList;
             this.dataGridView1.Columns["Id"].Visible = false;
@@ -73,6 +73,10 @@ namespace CaptstoneProject
         }
         private void SetPortfolioGridView(List<Portfolio> portfolioList)
         {
+            dataGridView2.DataSource = null;
+            dataGridView2.Update();
+            dataGridView2.Refresh();
+
             dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView2.ReadOnly = true;
             dataGridView2.DataSource = portfolioList;
@@ -123,7 +127,7 @@ namespace CaptstoneProject
                 dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 dataGridView2.ReadOnly = true;
                 dataGridView2.DataSource = portfolioList;
-                valuelabel.Text = Calculations.GetBuyingPower();
+                buyingPowerValue.Text = Calculations.GetBuyingPower();
                 SetPortfolioGridView(portfolioList);
             }
             else
@@ -160,7 +164,7 @@ namespace CaptstoneProject
                 dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 dataGridView2.ReadOnly = true;
                 dataGridView2.DataSource = portfolioList;
-                valuelabel.Text = Calculations.GetBuyingPower();
+                buyingPowerValue.Text = Calculations.GetBuyingPower();
 
                 SetPortfolioGridView(portfolioList);
             }
