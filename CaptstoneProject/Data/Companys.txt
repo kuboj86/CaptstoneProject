@@ -1,0 +1,65 @@
+﻿Apple,AAPL,146.39
+Microsoft,MSFT,280.75
+Amazon,AMZN,3573.63
+Alphabet,GOOG,2636.91
+Berkshire Hathaway., BRKB,2207
+Facebook,FB,341.16
+NVIDIA,NVDA,726.44
+Tesla,TSLA,644.22
+JPMorgan Chase.,JPM,151.91
+Visa.,V,248.12
+Johnson & Johnson,JNJ,168.10
+UnitedHealth Group, UNH,419.70
+PayPal, PYPL,294.63
+Home Depot, HD,321.54
+Procter & Gamble, PG, 140.51
+Mastercard, MA, 387.12
+Disney, DIS, 179.31
+Bank of America, BAC, 37.92
+Adobe, ADBE, 606.10
+Comcast, CMCSA, 57.55
+Exxon Mobil, XOM, 57.32
+Netflix, NFLX, 530.31
+Verizon, VZ, 56.46
+Salesforce.com, CRM, 238.43
+Intel, INTC, 54.97
+Cisco Systems, CSCO, 53.70
+Pfizer, PFE, 40.35
+Abbott Laboratories, ABT, 117.51
+Coca-Cola, KO, 56.40
+PepsiCo, PEP, 155.82
+AT&T, T, 28.34
+AbbVie, ABBV, 117.50
+Thermo Fisher, TMO, 519.79
+NIKE, NKE, 159.85
+Chevron, CVX, 98.62
+Merck & Co., MRK, 78.02
+Accenture Plc, ACN,311.91
+Walmart, WMT,141.56
+Broadcom, AVGO,468.07
+Eli Lilly and Company, LLY,232.46
+Wells Fargo, WFC,44.28
+Costco, COST,410.37
+Danaher Corperation, DHR,284.79
+Texas Instruments, TXN,186.12
+McDonald's, MCD, 234.75
+Qualcomm Inc, QCOMM, 139.71
+Oracle, ORCL, 87.49
+UPS, UPS, 210.57
+Citigroup, C, 66.90
+Lowes, LOW, 196.14
+Starbucks,SBUX,118.73
+Morgan Stanley,MS,91.25
+Boeing Company,BA,217.74
+Applied Materials,AMAT,128.18
+Target,T,28.34
+Caterpillar Inc., CAT,207.95
+3M Company, MMM,199.37
+General Electric, GE,12.55
+American Express, AXP,170.01
+Advanced Micro Devices, AMD,85.89
+CVS Health Corperation, CVS,81.72
+Charter Communications, CHTR,709.99
+Altria Group, MO,47.31
+PNC Financial Services, PNC,183.43
+FedEx, FDX,292.49
