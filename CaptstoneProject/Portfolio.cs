@@ -12,7 +12,8 @@ namespace CaptstoneProject
         public int Id { get; set; }
         public string CompanyName { get; set; }
         public string TickerSymbol { get; set; }
-        public double PurchasedStockPrice { get; set; }
+        public int Shares { get; set; }
+        public double AverageShareCost { get; set; }
         public int movementValue { get; set; }
         public double NewStockPrice { get; set; }
         public double ProfitLoss { get; set; }
@@ -33,13 +34,14 @@ namespace CaptstoneProject
                 portfolio.Id = Convert.ToInt32(fileArray[0]); //ID
                 portfolio.CompanyName = fileArray[1]; //Company
                 portfolio.TickerSymbol = fileArray[2]; //Ticker
-                portfolio.PurchasedStockPrice = Convert.ToDouble(fileArray[3]);//price of stock at purchase
+                portfolio.Shares = Convert.ToInt32(fileArray[3]); //Shares
+                portfolio.AverageShareCost = Convert.ToDouble(fileArray[4]);//price of stock at purchase
 
 
                 Stock comp = companyList.Find(x => x.Id == portfolio.Id);
                 //portfolio.NewStockPrice = Convert.ToDouble(fileArray[4]);//current stock price
                 portfolio.NewStockPrice = Convert.ToDouble(comp.NewStockPrice);
-                portfolio.ProfitLoss = Calculations.GetProfitLoss(portfolio.PurchasedStockPrice, portfolio.NewStockPrice);
+                portfolio.ProfitLoss = Calculations.GetProfitLoss(portfolio.AverageShareCost, portfolio.NewStockPrice);
                 myPortfolio.Add(portfolio);
                 id++;
             }

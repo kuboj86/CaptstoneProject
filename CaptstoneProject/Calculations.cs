@@ -123,5 +123,33 @@ namespace CaptstoneProject
             return newBalance;
 
         }
+        internal static Portfolio GetAvergeSharePrice_Add(Portfolio multipleStocks, Portfolio port)
+        {
+            int shareCount = port.Shares + multipleStocks.Shares;
+
+            double totalPurchaseCost = 0;
+            double totalAverageCost = 0;
+
+            totalPurchaseCost = Math.Round(port.AverageShareCost + (multipleStocks.AverageShareCost * multipleStocks.Shares)); //106
+            
+
+            //MATH>ROUND
+
+            totalAverageCost = totalPurchaseCost / shareCount;
+            port.Shares = shareCount;
+            port.AverageShareCost = totalAverageCost;
+
+            return port;
+        }
+        internal static Portfolio GetAvergeSharePrice_Subtract(Portfolio port, double currentPrice)
+        {
+            int shareCount = port.Shares - 1;
+            double oldAverageCost = port.AverageShareCost * port.Shares;
+            double newAverageCost = oldAverageCost - currentPrice;
+
+            port.Shares = shareCount;
+            port.AverageShareCost = newAverageCost / shareCount;
+            return port;
+        }
     }
 }

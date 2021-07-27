@@ -85,7 +85,7 @@ namespace CaptstoneProject
             dataGridView2.DataSource = portfolioList;
             this.dataGridView2.Columns["Id"].Visible = false;
             this.dataGridView2.Columns["PercentChange"].Visible = false;
-            this.dataGridView2.Columns["PurchasedStockPrice"].DefaultCellStyle.Format = "c";
+            this.dataGridView2.Columns["AverageShareCost"].DefaultCellStyle.Format = "c";
             this.dataGridView2.Columns["ProfitLoss"].DefaultCellStyle.Format = "c";
             this.dataGridView2.Columns["NewStockPrice"].DefaultCellStyle.Format = "c";
             this.dataGridView2.Columns["CompanyName"].Width = 200;
@@ -94,11 +94,11 @@ namespace CaptstoneProject
             foreach (DataGridViewRow row in dataGridView2.Rows)
             {
 
-                if (Convert.ToInt32(row.Cells[3].Value) < Convert.ToInt32(row.Cells[5].Value))
+                if (Convert.ToInt32(row.Cells[4].Value) < Convert.ToInt32(row.Cells[6].Value))
                 {
                     row.DefaultCellStyle.BackColor = Color.Green;
                 }
-                else if (Convert.ToInt32(row.Cells[3].Value) > Convert.ToInt32(row.Cells[5].Value))
+                else if (Convert.ToInt32(row.Cells[4].Value) > Convert.ToInt32(row.Cells[6].Value))
                 {
                     row.DefaultCellStyle.BackColor = Color.Red;
                 }
@@ -118,11 +118,24 @@ namespace CaptstoneProject
                 port.CompanyName = (string)row.Cells["CompanyName"].Value;
                 port.TickerSymbol = (string)row.Cells["TickerSymbol"].Value;
                 port.NewStockPrice = (double)row.Cells["NewStockPrice"].Value;
-                port.PurchasedStockPrice = (double)row.Cells["NewStockPrice"].Value;
+                port.AverageShareCost = (double)row.Cells["NewStockPrice"].Value;
+                //can only buy 1 at a time currently
+                port.Shares = 1;
 
                 List<Portfolio> portfolioList = Portfolio.GetPortfolio(companyList);
+                Portfolio multipleStocks = new Portfolio();
+                foreach (var item in portfolioList.ToList().Where(x => x.Id == port.Id))
+                {
+                    multipleStocks = item;
+                    portfolioList.Remove(item);
+                }
+                if (multipleStocks != null)
+                {
+                    port = Calculations.GetAvergeSharePrice_Add(multipleStocks, port);
+                }
                 portfolioList.Add(port);
-                string newBalance = Calculations.CalculateSubtractFromBalance(port.PurchasedStockPrice);
+
+                string newBalance = Calculations.CalculateSubtractFromBalance(port.AverageShareCost);
 
                 Updates.InsertBalanceRecord(newBalance);
                 Updates.InsertPortfolioList(portfolioList);
@@ -148,6 +161,9 @@ namespace CaptstoneProject
 
             Cursor.Current = Cursors.Default;
         }
+
+
+
         private void sellButton_Click(object sender, EventArgs e)
         {
             Cursor cursor = Cursor.Current;
@@ -155,20 +171,30 @@ namespace CaptstoneProject
             List<Stock> companyList = Company.GetCompanysList();
             if (dataGridView2.SelectedRows.Count != 0)
             {
-                List<Portfolio> portfolioList = Portfolio.GetPortfolio(companyList);
-
                 DataGridViewRow row = this.dataGridView2.SelectedRows[0];
-
                 int stockID = (int)row.Cells["Id"].Value;
+                double currentPrice = (double)row.Cells["NewStockPrice"].Value;
+                List<Portfolio> portfolioList = Portfolio.GetPortfolio(companyList);
+                Portfolio newStock = new Portfolio();
 
-                var removeStock = portfolioList.Single(x => x.Id == stockID);
-                if(removeStock != null)
+                Portfolio oldStock = portfolioList.Where(x => x.Id == stockID).FirstOrDefault();
+                if(oldStock != null && oldStock.Shares -1 != 0)
                 {
-                    double currentPrice = (double)row.Cells["NewStockPrice"].Value;
-                    string newBalance = Calculations.CalculateAddToBalance(currentPrice);
-                    Updates.InsertBalanceRecord(newBalance);
+                    oldStock = Calculations.GetAvergeSharePrice_Subtract(oldStock, currentPrice);
+                    newStock = oldStock;
+                    portfolioList.Remove(oldStock);
+                    portfolioList.Add(newStock);
+                }
+                else
+                {
+                    var removeStock = portfolioList.Single(x => x.Id == stockID);
                     portfolioList.Remove(removeStock);
                 }
+
+                string newBalance = Calculations.CalculateAddToBalance(currentPrice);
+                Updates.InsertBalanceRecord(newBalance);
+
+
                 dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
                 dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 dataGridView2.ReadOnly = true;

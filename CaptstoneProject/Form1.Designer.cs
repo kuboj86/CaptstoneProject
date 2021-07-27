@@ -89,7 +89,7 @@ namespace CaptstoneProject
             this.dataGridView2.MultiSelect = false;
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersVisible = false;
-            this.dataGridView2.Size = new System.Drawing.Size(655, 219);
+            this.dataGridView2.Size = new System.Drawing.Size(750, 272);
             this.dataGridView2.TabIndex = 6;
             this.dataGridView2.Visible = false;
             // 
@@ -165,7 +165,7 @@ namespace CaptstoneProject
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1480, 637);
+            this.ClientSize = new System.Drawing.Size(1619, 637);
             this.Controls.Add(this.buyingPowerValue);
             this.Controls.Add(this.buyingPower_label);
             this.Controls.Add(this.sellButton);

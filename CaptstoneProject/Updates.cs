@@ -43,12 +43,12 @@ namespace CaptstoneProject
                     i++;
                     if (i == updatedPortfolioList.Count)
                     {
-                        string equity = $"{stock.Id},{stock.CompanyName},{stock.TickerSymbol},{stock.PurchasedStockPrice},{stock.NewStockPrice}";
+                        string equity = $"{stock.Id},{stock.CompanyName},{stock.TickerSymbol},{stock.Shares},{stock.AverageShareCost},{stock.NewStockPrice}";
                         stream.Write(equity);
                     }
                     else
                     {
-                        string equity = $"{stock.Id},{stock.CompanyName},{stock.TickerSymbol},{stock.PurchasedStockPrice},{stock.NewStockPrice}\n";
+                        string equity = $"{stock.Id},{stock.CompanyName},{stock.TickerSymbol},{stock.Shares},{stock.AverageShareCost},{stock.NewStockPrice}\n";
                         stream.Write(equity);
                     }
 
@@ -59,7 +59,7 @@ namespace CaptstoneProject
 
         public static void InsertPortfolioRecord(Portfolio port)
         {
-            string equity = $"{port.Id},{port.CompanyName},{port.TickerSymbol},{port.PurchasedStockPrice},{port.NewStockPrice}";
+            string equity = $"{port.Id},{port.CompanyName},{port.TickerSymbol},{port.AverageShareCost},{port.NewStockPrice}";
             File.AppendAllText("Data/Portfolio.txt",$"{equity}\n");
             //using (StreamWriter stream = File.AppendText("Data/Portfolio.txt"))
             //{
